@@ -10,7 +10,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Company>Daniel Nunes</Company>
 		<Copyright>© 2026 Daniel Nunes</Copyright>
-		<Description>Lightweight, provider-agnostic async database abstraction for .NET with transaction support, raw SQL execution, expression-based querying, and high-performance object mapping.</Description>
+		<Description>IRIS provider for DBN.DatabaseManager: lightweight, async database abstraction with transaction support, raw SQL execution, and expression-based querying.</Description>
 		<PackageTags>database;sql;orm;micro-orm;data-access;ado.net;async;repository;query;mapping;linq;expression;expression-trees;multi-database;cross-database;oracle;sqlserver;mysql;mariadb;sqlite;iris;abstraction;lightweight;high-performance;dapper-alternative</PackageTags>
 		<RepositoryUrl>https://github.com/DNunes40/DBN.DatabaseManager</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
