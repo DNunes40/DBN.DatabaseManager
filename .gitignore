@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Allow NuGet packages in Versions folder
+!DBN.DatabaseManager/Versions/
+!DBN.DatabaseManager/Versions/*.nupkg
