@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+<PropertyGroup>
+	<TargetFramework>net8.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<PackageId>DBN.DatabaseManager.Oracle</PackageId>
+	<Version>1.0.0</Version>
+	<Authors>Daniel Nunes</Authors>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<Company>Daniel Nunes</Company>
+	<Copyright>© 2026 Daniel Nunes</Copyright>
+	<Description>Lightweight, provider-agnostic async database abstraction for .NET with transaction support, raw SQL execution, expression-based querying, and high-performance object mapping.</Description>
+	<PackageTags>database;sql;orm;micro-orm;data-access;ado.net;async;repository;query;mapping;linq;expression;expression-trees;multi-database;cross-database;oracle;sqlserver;mysql;mariadb;sqlite;iris;abstraction;lightweight;high-performance;dapper-alternative</PackageTags>
+	<RepositoryUrl>https://github.com/DNunes40/DBN.DatabaseManager</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="README.md" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+		<PackageIcon>Icon.png</PackageIcon>
+		<!-- optional: suppress missing XML comments warnings -->
+	</PropertyGroup>
+	
+	<ItemGroup>
+  <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.9.1" />
+</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DBN.DatabaseManager.Abstractions\DBN.DatabaseManager.Abstractions.csproj" Pack="true" PackageReference="true" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Icon.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<Target Name="AfterPack" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release'">
+		<!-- Ensure the folder one level up exists -->
+		<MakeDir Directories="$(MSBuildProjectDirectory)\..\Versions" />
+
+		<!-- Copy the nupkg one directory up -->
+		<Copy SourceFiles="$(OutputPath)..\$(PackageId).$(Version).nupkg" DestinationFolder="$(MSBuildProjectDirectory)\..\Versions" />
+	</Target>
+
+</Project>
