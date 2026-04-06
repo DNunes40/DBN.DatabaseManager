@@ -134,6 +134,8 @@ namespace DBN.DatabaseManager.Tests
 
             var table = await reader.ToDataTable();
 
+            await reader.DisposeAsync();
+
             var row = table.Rows[index];
 
             var value = row[column] == DBNull.Value ? null : row[column]?.ToString();
@@ -212,6 +214,8 @@ namespace DBN.DatabaseManager.Tests
             var boolValue = reader.GetDBValueAs<bool>("LongValue");
 
             var stringValue = reader.GetDBValueAs<string>("StringValue");
+
+            await reader.DisposeAsync();
 
             Assert.Equal(42, intValue);
 

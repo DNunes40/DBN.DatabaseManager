@@ -242,9 +242,8 @@ namespace DBN.DatabaseManager.Abstractions
             try
             {
                 sql = SqlBuilderExpression.ExecuteWhere(expr);
-                var reader = await ExecuteReaderAsync(sql);
+                await using var reader = await ExecuteReaderAsync(sql);
                 var result = FastMapper.MapReader(reader, typeof(T));
-                await reader.DisposeAsync();
                 return (T)(result ?? Activator.CreateInstance(typeof(T))!);
             }
             catch (Exception exc)
@@ -260,9 +259,8 @@ namespace DBN.DatabaseManager.Abstractions
             try
             {
                 sql = SqlBuilderExpression.ExecuteWhere(expr);
-                var reader = await ExecuteReaderAsync(sql);
+                await using var reader = await ExecuteReaderAsync(sql);
                 var result = FastMapper.MapReader(reader, typeof(List<T>));
-                await reader.DisposeAsync();
                 return (List<T>)(result ?? new List<T>());
             }
             catch (Exception exc)
@@ -277,33 +275,15 @@ namespace DBN.DatabaseManager.Abstractions
         {
             try
             {
-                if (_factory.GetType().Name.Contains("Sqlite"))
-                {
-                    return await ExecuteDataSetSqLiteAsync(sql, parameters);
-                }
-
-                var reader = await ExecuteReaderAsync(sql, parameters);
-                return await LoadDataSetAsync(reader);
+                await using var reader = await ExecuteReaderAsync(sql, parameters);
+                var dataSet = await LoadDataSetAsync(reader);
+                return dataSet;
             }
             catch (Exception exc)
             {
                 throw new DatabaseManagerException(exc, sql, parameters);
             }
         }
-
-        private async Task<DataSet> ExecuteDataSetSqLiteAsync(string sql, params DbParameter[] parameters)
-        {
-            try
-            {
-                var reader = await ExecuteReaderAsync(sql, parameters);
-                return await LoadDataSetAsync(reader);
-            }
-            catch (Exception exc)
-            {
-                throw new DatabaseManagerException(exc, sql, parameters);
-            }
-        }
-
 
 
         public async Task<int> ExecuteNonQueryAsync(string sql, params DbParameter[] parameters)
@@ -411,7 +391,7 @@ namespace DBN.DatabaseManager.Abstractions
         {
             try
             {
-                var reader = await ExecuteReaderAsync(sql, parameters);
+                await using var reader = await ExecuteReaderAsync(sql, parameters);
 
                 return await reader.MapTo<T>();
             }
