@@ -145,8 +145,7 @@ namespace DBN.DatabaseManager.Abstractions
             {
                 var connection = await GetConnection();
                 var command = DbCommandHelper.CreateCommand(_factory, connection, sql, _transaction, parameters);
-                var behavior = _transaction == null ? CommandBehavior.CloseConnection : CommandBehavior.Default;
-                var reader = await command.ExecuteReaderAsync(behavior);
+                var reader = await command.ExecuteReaderAsync(CommandBehavior.Default);
                 return reader;
             }
             catch (Exception exc)
@@ -196,8 +195,7 @@ namespace DBN.DatabaseManager.Abstractions
 
                 var connection = await GetConnection();
                 var command = DbCommandHelper.CreateCommand(_factory, connection, sql, _transaction, parameters);
-                var behavior = _transaction == null ? CommandBehavior.CloseConnection : CommandBehavior.Default;
-                var reader = await command.ExecuteReaderAsync(behavior);
+                var reader = await command.ExecuteReaderAsync(CommandBehavior.Default);
                 return reader;
             }
             catch (Exception exc)

@@ -5,7 +5,7 @@
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
 	<PackageId>DBN.DatabaseManager.Abstractions</PackageId>
-	<Version>1.0.0</Version>
+	<Version>1.0.1</Version>
 	<Authors>Daniel Nunes</Authors>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<Company>Daniel Nunes</Company>
@@ -36,6 +36,12 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);1591</NoWarn>
 		<PackageIcon>Icon.png</PackageIcon>
+		<PackageReleaseNotes>
+			This release improves database handling and stability:
+			- Fixed issue where `DbDataReader` disposal closed connections prematurely
+			- `CommandBehavior.Default` is now used instead of `CloseConnection`
+			- Ensures connections remain open while readers are in use
+		</PackageReleaseNotes>
 		<!-- optional: suppress missing XML comments warnings -->
 	</PropertyGroup>
 	
